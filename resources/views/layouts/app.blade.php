@@ -14,7 +14,7 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Books</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/authors') }}">Top Authors</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/rate') }}">Rate a Book</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/ratings') }}">Rate a Book</a></li>
             </ul>
         </div>
     </nav>
@@ -46,14 +46,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script>
+@stack('scripts')
+{{-- <script>
     $(document).ready(function() {
         $('#book-select').select2({
             placeholder: "-- Select Book --",
             width: '100%'
         });
     });
-</script>
+</script> --}}
 
 </body>
 </html>

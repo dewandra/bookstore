@@ -9,6 +9,7 @@ class Rating extends Model
 {
     /** @use HasFactory<\Database\Factories\RatingFactory> */
     use HasFactory;
+
     protected $fillable = ['book_id', 'rating'];
 
     public function book()

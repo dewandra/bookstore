@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->index(); // Adding index for faster lookups
+            $table->string('name')->index();
+            $table->unsignedInteger('voter_count')->default(0); // Tambahkan kolom ini
             $table->timestamps();
+
+            $table->index('voter_count'); 
         });
     }
 
