@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->unsignedInteger('voter_count')->default(0); // Tambahkan kolom ini
+            $table->unsignedInteger('voter_count')->default(0); 
             $table->timestamps();
 
             $table->index('voter_count'); 

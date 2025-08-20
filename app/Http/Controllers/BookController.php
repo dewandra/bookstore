@@ -13,8 +13,6 @@ class BookController extends Controller
         $search = $request->input('search');
 
         $booksQuery = Book::query()
-            // KUNCI PERBAIKAN: Secara eksplisit pilih semua kolom dari `books`
-            // Ini akan memastikan `books.id` yang digunakan, bukan `authors.id`
             ->select('books.*', 'authors.name as author_name', 'categories.name as category_name')
             ->join('authors', 'books.author_id', '=', 'authors.id')
             ->join('categories', 'books.category_id', '=', 'categories.id');
@@ -25,9 +23,7 @@ class BookController extends Controller
                       ->orWhere('authors.name', 'like', '%' . $search . '%');
             });
         }
-
-        // Tambahkan kolom 'ratings_avg_rating' dan 'voter_count' secara dinamis
-        // agar tidak mengganggu query utama
+        
         $booksQuery->addSelect(
             'books.ratings_avg as ratings_avg_rating',
             'books.voter_count'

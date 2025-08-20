@@ -10,18 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class RatingController extends Controller
 {
-    /**
-     * Menampilkan form rating dengan daftar penulis.
-     */
     public function index()
     {
         $authors = Author::orderBy('name')->get();
         return view('ratings.index', compact('authors'));
     }
 
-    /**
-     * Menyimpan rating baru dan mengupdate kalkulasi.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -31,7 +25,6 @@ class RatingController extends Controller
 
         Rating::create($validatedData);
 
-        // 1. Update rata-rata rating dan voter count untuk buku terkait
         $bookStats = Rating::where('book_id', $validatedData['book_id'])
             ->selectRaw('AVG(rating) as ratings_avg, COUNT(id) as voter_count')
             ->first();
@@ -42,7 +35,6 @@ class RatingController extends Controller
             'voter_count' => $bookStats->voter_count,
         ]);
 
-        // 2. Hitung ulang voter_count untuk penulis buku tersebut
         $authorVoterCount = Rating::where('rating', '>', 5)
             ->whereHas('book', function ($query) use ($book) {
                 $query->where('author_id', $book->author_id);
@@ -54,9 +46,6 @@ class RatingController extends Controller
         return redirect()->route('books.index')->with('success', 'Rating added successfully.');
     }
 
-    /**
-     * Mengambil daftar buku berdasarkan ID penulis untuk AJAX request.
-     */
     public function getBooksByAuthor(Author $author)
     {
         $books = $author->books()->orderBy('title')->get(['id', 'title']);

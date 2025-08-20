@@ -52,27 +52,22 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    // Inisialisasi Select2 untuk dropdown penulis
     $('#author-select').select2({
         placeholder: "-- Select Author --",
         width: '100%'
     });
 
-    // Inisialisasi Select2 untuk dropdown buku
     const bookSelect = $('#book-select').select2({
         placeholder: "-- Select Author First --",
         width: '100%'
     });
 
-    // Event listener saat dropdown penulis berubah
     $('#author-select').on('change', function() {
         const authorId = $(this).val();
         
-        // Kosongkan dan nonaktifkan dropdown buku
         bookSelect.empty().append('<option value="">Loading...</option>').prop('disabled', true);
 
         if (authorId) {
-            // Jika penulis dipilih, ambil data buku via AJAX
             $.ajax({
                 url: `/authors/${authorId}/books`,
                 type: 'GET',
@@ -93,7 +88,6 @@ $(document).ready(function() {
                 }
             });
         } else {
-            // Jika tidak ada penulis yang dipilih
             bookSelect.empty().append('<option value="">-- Select Author First --</option>');
         }
     });

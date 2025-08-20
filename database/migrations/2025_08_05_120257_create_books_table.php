@@ -18,11 +18,11 @@ return new class extends Migration
         $table->foreignId('category_id')->constrained()->onDelete('cascade');
         $table->timestamps();
 
-        // Pindahkan kolom baru ke bawah dan hapus ->after()
+        
         $table->decimal('ratings_avg', 4, 2)->default(0);
         $table->unsignedInteger('voter_count')->default(0);
 
-        $table->index('ratings_avg')->index(); // Adding index for faster lookups
+        $table->index('ratings_avg')->index(); 
         });
     }
 
